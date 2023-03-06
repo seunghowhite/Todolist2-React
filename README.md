@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Todolist 리덕스와 스타일 컴포넌트 적용하여 만들기
+## 진행중...
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### 💡기능규현:'추가'버튼 만들기 중.....
 
-In the project directory, you can run:
+### 1.트러블슈팅
 
-### `yarn start`
+🤔에러내용:
+<img width="953" alt="Untitled (1)" src="https://user-images.githubusercontent.com/105100315/223053059-a73b702d-aaf4-4ffb-94f4-806512de69b2.png">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+☝️에러원인:provider 사용안함
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+✅해결방법:
 
-### `yarn test`
+store을 사용했으면 index.js 에서 리덕스 훅Provider, configSotre.js에서 store를 import후 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+provider를 sotre를 사용해서 app을 감싸줘야한다.
+```
+//index.js
 
-### `yarn build`
+// 추가할 코드
+import store from "./redux/config/configStore";
+import { Provider } from "react-redux";
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  //App을 Provider로 감싸주고, configStore에서 export default 한 store를 넣어줍니다.
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+reportWebVitals();
+```
 
-### `yarn eject`
+### 2.트러블슈팅
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+🤔에러내용
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Untitled (1)](https://user-images.githubusercontent.com/105100315/223053697-d1fa929f-3989-4556-8474-42d8c0c28a37.png)
+:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+☝️에러원인:
+const todolists = useSelector((state) => state.todolists.todolists)기존 코드중 가지고오는 객체 이름을 잘못 설정함 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+렌더링하여 표시할 데이터가 String, Number 등의 `원시타입`데이터인 지 확인하여 코드를 작성안함
 
-## Learn More
+✅에러해결방법:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+내가 가지고 오고 싶은 값은 object의 key값이다. 다시한번 확인후 알맞은 key값으로 설정한다.
+```
+const App = () => {
+  const [title, setTitle] = useState('')//로컬 state값 
+  const todolists = useSelector((state) => state.todolists.todolists)//배열 key값 잘 작성 해야함
+  const dispatch = useDispatch();
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3.트러블슈팅
+🤔에러내용:
+form테그에서 계속해서 버튼을 클릭하면 초기화가 된다.
 
-### Code Splitting
+☝️에러이유:
+form의 버튼을 클릭하면 제출이되고 페이지를 다시 불러오기 때문에 컴포넌트가 리렌더링이 다시 된다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+✅에러해결방법:
+`e.preventDefault()` 를사용하여 기존의 제출방식을 억제 시킨다.
