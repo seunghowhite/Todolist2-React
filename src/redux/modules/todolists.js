@@ -24,8 +24,8 @@ const initialSate = {
     },
     {
       id: 2,
-      title: "점심 먹기",
-      content: "짜장면 탕수욕",
+      title: "리덕스 공부하기",
+      content: "리덕스 뿌수기",
       isDone: true,
     },
   ],

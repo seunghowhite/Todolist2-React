@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components';
 
 
@@ -24,6 +24,9 @@ function DetailTodo() {
       <div>
         {foudddata.content}
       </div>
+      <Homebuton>
+        <Link to={`/`}>홈으로</Link>
+      </Homebuton>
     </Detailbox>
   )
 }
@@ -44,4 +47,15 @@ const Detailbox = styled.div`
 `
 const Detailtitle = styled.h1`
   margin-bottom: 50px;
+`
+
+const Homebuton = styled.button`
+  height: 30px;
+  margin: 10px;
+  background-color: #ECF2FF;
+  border-color: none;
+  border-radius: 5px;
+  &:hover{
+    border-radius: 5px;
+    background-color: #BFACE2;}
 `
