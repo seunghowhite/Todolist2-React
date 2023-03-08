@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DetailTodo from '../pages/DetailTodo.js/DetailTodo';
 import Home from '../pages/Home';
-import DetailTodo from '../pages/DetailTodo';
+
 
 
 const Router = () => {

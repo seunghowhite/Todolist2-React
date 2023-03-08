@@ -9,7 +9,7 @@ function InputForm() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const dispatch = useDispatch();
-  const todolists = useSelector((state) => state.storetodolists.todolists)
+  // const todolists = useSelector((state) => state.storetodolists.todolists)
 
 
   const sumbitTitle = (e) => {
@@ -20,10 +20,8 @@ function InputForm() {
     };
     dispatch(
       addtodo({
-        id: todolists.length + 1,
         title: title,
         content: content,
-        isDone: false,
       })
     )
     setTitle('')

@@ -35,14 +35,24 @@ const initialSate = {
 const todolists = (state = initialSate, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return {
+      const lastTodoIndex = state.todolists[state.todolists.length - 1]
+      const ID = lastTodoIndex.id + 1
+      const addstate = {
         ...state,
-        todolists: [...state.todolists, action.payload]
+        todolists: [...state.todolists,
+        {
+          id: ID,
+          title: action.payload.title,
+          content: action.payload.content,
+          isDone: false,
+        }
+        ]
       };
+      return addstate
     case DELETE_TODO:
       return {
         ...state,
-        todolists: [...state.todolists.filter((item) => item.id !== action.payload)]//필터
+        todolists: [...state.todolists.filter((item) => item.id !== action.payload)]
       }
     case TOGGLE_TODO:
       return {
