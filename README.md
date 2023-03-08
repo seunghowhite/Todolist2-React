@@ -1,8 +1,14 @@
 # Todolist 리덕스와 스타일 컴포넌트 적용하여 만들기
-## 진행중...
+## 주기능 기존todolist기능+상세페이지로 들어가기(react-router-dom)
+###  리엑트사용 (전역state 사용)
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/105100315/223604328-c77525ac-3aa0-4bac-972b-99eac731718c.gif)
 
 
-### 💡기능규현:'추가'버튼 만들기 중.....
+
+
+## 💡기능현:'추가'버튼 만들기 중.....
+
 
 ### 1.트러블슈팅
 
@@ -35,6 +41,7 @@ root.render(
 reportWebVitals();
 ```
 
+
 ### 2.트러블슈팅
 
 🤔에러내용
@@ -57,6 +64,7 @@ const App = () => {
   const dispatch = useDispatch();
 ```
 
+
 ### 3.트러블슈팅
 🤔에러내용:
 form테그에서 계속해서 버튼을 클릭하면 초기화가 된다.
@@ -66,3 +74,30 @@ form의 버튼을 클릭하면 제출이되고 페이지를 다시 불러오기 
 
 ✅에러해결방법:
 `e.preventDefault()` 를사용하여 기존의 제출방식을 억제 시킨다.
+
+
+## 💡기능규현:React-Router-DOM 만들기 중.....
+
+### 1.트러블슈팅
+
+🤔에러내용:
+
+<img width="287" alt="스크린샷 2023-03-08 004447" src="https://user-images.githubusercontent.com/105100315/223605335-c2ef3a30-8fe0-4c3e-a2ae-fce7e2c45751.png">
+
+
+
+☝️에러이유:
+
+ ShowDoingDone.jsx 그리고 Router.js PATH가 불일치 했다.
+
+✅에러해결방법:
+
+링크 매치 재대러 시켜줘야한다  ShowDoingDone.jsx 그리고 Router.js  PATH를 동일하게 만들어야함
+ShowDoingDone.jsx
+```
+ <Link to={`/detailtodo/${list.id}`} >제목:<br />{list.title}</Link>
+```
+Router.js
+```
+<Route path='detailtodo/:id' element={<DetailTodo />}></Route>
+```
